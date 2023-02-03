@@ -1,0 +1,15 @@
+.card__card-like {
+  width: 24px;
+  height: 19px;
+  background-image: url(../../../images/corazon.svg);
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  padding-right: 16px;
+  background-repeat: no-repeat;
+  transition: 0.3s;
+}
+
+.card__card-like:hover {
+  background-image: url(../../../images/corazon_hover.svg);
+}

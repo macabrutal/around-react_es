@@ -1,0 +1,27 @@
+.profile__intro {
+  /* width: 415px; */
+  width: 70%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  flex-wrap: wrap;
+  
+}
+
+/* TABLET */
+@media screen and (min-width: 321px) and (max-width: 768px) {
+  .profile__intro {
+    width: auto;
+  }
+}
+
+/* MOBILE*/
+@media screen and (min-width: 5px) and (max-width: 550px) {
+  .profile__intro {
+    width: 100%;
+    height: auto;
+    margin: 26px 0 36px;
+  }
+}

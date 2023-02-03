@@ -1,0 +1,19 @@
+/* CLASE CON  display: block; PARA MOSTRAR LA MODAL: */
+
+.popup-container_show {
+  display: flex;
+  pointer-events: auto;
+  justify-content: center;
+  align-content: center;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  /* para que se abra lento */
+  visibility: visible;
+  opacity: 1;
+  /* transition: visibility 0s, opacity 0.5s linear; */
+}
