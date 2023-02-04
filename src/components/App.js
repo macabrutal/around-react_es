@@ -9,14 +9,36 @@
 
 import React from "react";
 
+import api from './Api'
 import logo from '../images/logo.png';
+import Card from './Card';
 import Main from './Main';
 import UserInfo from './UserInfo';
 import PopupWithImage from './PopupWithImage';
-import PopupWithForm from './PopupWithForm'
+import PopupWithForm from './PopupWithForm';
 
 
-function App() {
+export default function App(){
+
+React.useEffect(() => {
+  api.getInitialCards().then(json => {
+    setCards(json);  
+  })
+  .catch((error) => {
+    console.log(error);
+  }); 
+}, []);
+
+React.useEffect(() => {
+  api.getProfileInfo().then(json => {
+    setUser(json);  
+  })
+  .catch((error) => {
+    console.log(error);
+  }); 
+}, []);
+
+
 
 const [user, setUser] = React.useState({});      //estado0 de usuarios
 const [cards, setCards] = React.useState([]);   //estado0 de usuarios
@@ -30,6 +52,7 @@ popupConfirmation: false
 })    //estado de los 5 POPUPS
 
 const [selectedCard, setSelectedCard] = React.useState({});
+const [errors, setErrors]= React.useState();
 
 // 3 HANDLE PARA CARD
 function handleClickImage(event){
@@ -68,9 +91,9 @@ function handleClickAdd(event){
 
       <Main> 
         <UserInfo user={user}
-        handleEditAvatar={handleEditAvatar} //profile__avatar-edit
-        handleEditProfile={handleEditProfile} //profile__edit-button
-        handleClickAdd={handleClickAdd}    //profile__add-button 
+        handleEditAvatar={handleEditAvatar}     //profile__avatar-edit
+        handleEditProfile={handleEditProfile}   //profile__edit-button
+        handleClickAdd={handleClickAdd}        //profile__add-button 
         />
 
 
@@ -118,6 +141,8 @@ function handleClickAdd(event){
 {/* EDIT PROFILE*/}
     <PopupWithForm>
     open={popups.popupProfile}
+    error={errors.profile}
+    setErrors={() => {}}
     handleClose={() => {setPopups({...popups, popupProfile: false })}}
 
     <div id="profilePopup" className="popup-container">
@@ -126,9 +151,9 @@ function handleClickAdd(event){
         <h4 className="popup__title-popup">Edit profile</h4>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
-            <input id="profileTitle" className="popup__input-popup" type="text" placeholder="Nombre" name="name" required
+            <input id="profileTitle" className={`popup__input-popup ${errors.profile.name ? 'popup__error':''}`} type="text" placeholder="Nombre" name="name" required
               minLength="2" maxLength="40" />
-            <span className="popup__error popup__error_name"></span>
+            <span className="popup__error popup__error_name">{errors.profile.name}</span>
           </div>
 
           <div className="popup__field">
@@ -143,8 +168,6 @@ function handleClickAdd(event){
       </form>
     </div>
     </PopupWithForm>
-
-
 
 
     {/* AVATAR */}
@@ -209,4 +232,4 @@ function handleClickAdd(event){
   );
 }
 
-export default App;
+
