@@ -52,7 +52,7 @@ popupConfirmation: false
 })    //estado de los 5 POPUPS
 
 const [selectedCard, setSelectedCard] = React.useState({});
-const [errors, setErrors]= React.useState();
+const [errors, setErrors]= React.useState({profile: {}, });
 
 // 3 HANDLE PARA CARD
 function handleClickImage(event){
@@ -120,9 +120,9 @@ function handleClickAdd(event){
 
 
 {/* CONFIRMATION (DELETE) */}
-    <PopupWithForm>
+    <PopupWithForm
     open={popups.popupConfirmation}
-    handleClose={() => {setPopups({...popups, popupConfirmation: false })}}
+    handleClose={() => {setPopups({...popups, popupConfirmation: false })}} >
 
     <div id="popupDelete" className="popup-container">
         <button id="closeDelete" className="popup-container__close-popup"></button>
@@ -139,11 +139,11 @@ function handleClickAdd(event){
     </PopupWithForm>
     
 {/* EDIT PROFILE*/}
-    <PopupWithForm>
+    <PopupWithForm
     open={popups.popupProfile}
     error={errors.profile}
     setErrors={() => {}}
-    handleClose={() => {setPopups({...popups, popupProfile: false })}}
+    handleClose={() => {setPopups({...popups, popupProfile: false })}}>
 
     <div id="profilePopup" className="popup-container">
       <button id="close" className="popup-container__close-popup"></button>
@@ -171,9 +171,9 @@ function handleClickAdd(event){
 
 
     {/* AVATAR */}
-    <PopupWithForm>
+    <PopupWithForm
     open={popups.popupAvatar}
-    handleClose={() => {setPopups({...popups, popupAvatar: false })}}
+    handleClose={() => {setPopups({...popups, popupAvatar: false })}}>
 
     <div id="popupAvatar" className="popup-container">
         <button id="closeAvatar" className="popup-container__close-popup"></button>
@@ -194,9 +194,9 @@ function handleClickAdd(event){
     </PopupWithForm>
 
 {/* ADD CARD */}
-    <PopupWithForm>
+    <PopupWithForm
     open={popups.popupAddCard}
-    handleClose={() => {setPopups({...popups, popupAddCard: false })}}
+    handleClose={() => {setPopups({...popups, popupAddCard: false })}}>
 
     <div id="popupAddContainer" className="popup-container">
       <button id="closeAddPopup" className="popup-container__close-popup"></button>
