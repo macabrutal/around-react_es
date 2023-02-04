@@ -89,13 +89,12 @@ function handleClickAdd(event){
       <hr className="header__line" />
     </header>
 
-      <Main> 
+      <main> 
         <UserInfo user={user}
         handleEditAvatar={handleEditAvatar}     //profile__avatar-edit
         handleEditProfile={handleEditProfile}   //profile__edit-button
         handleClickAdd={handleClickAdd}        //profile__add-button 
         />
-
 
         <div className="cards">
           {cards.map(item => <Card
@@ -111,7 +110,7 @@ function handleClickAdd(event){
           key={item._id}
           />)}
         </div>
-      </Main>
+      </main>
       
       <footer className="footer">
       <p className="footer__text-footer">© 2021 Alrededor de los EEUU</p>
