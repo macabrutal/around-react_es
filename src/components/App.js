@@ -1,7 +1,6 @@
 // FALTA TERMINAR:
-// handleClickImage(event)
-// handleLikeCard(event)
-// handleDeleteCard(event)
+//// handleLikeCard(event)
+
 //handleEditAvatar(event)
 //handleEditProfile(event)
 //handleClickAdd(event)
@@ -12,13 +11,14 @@ import React from "react";
 import api from './Api'
 import logo from '../images/logo.png';
 import Card from './Card';
-import Main from './Main';
 import UserInfo from './UserInfo';
 import PopupWithImage from './PopupWithImage';
 import PopupWithForm from './PopupWithForm';
 
 
 export default function App(){
+
+  // const api = new Api();
 
 React.useEffect(() => {
   api.getInitialCards().then(json => {
@@ -39,7 +39,6 @@ React.useEffect(() => {
 }, []);
 
 
-
 const [user, setUser] = React.useState({});      //estado0 de usuarios
 const [cards, setCards] = React.useState([]);   //estado0 de usuarios
 
@@ -51,34 +50,78 @@ popupAvatar: false,
 popupConfirmation: false
 })    //estado de los 5 POPUPS
 
-const [selectedCard, setSelectedCard] = React.useState({});
+const [openPopup, setOpenPopup] = React.useState('')
+
+const [selectedCard, setSelectedCard] = React.useState(''); //para saber qué card está seleccionada
+
 const [errors, setErrors]= React.useState({profile: {}, });
+
+const [nameValue, setNameValue]= React.useState('');
+
+const[aboutValue, setAboutValue]= React.useState('');
+
 
 // 3 HANDLE PARA CARD
 function handleClickImage(event){
-
+  setOpenPopup('popupImage')
 }
 
 function handleLikeCard(event){
+  setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
 
 }
 
 function handleDeleteCard(event){
+  setOpenPopup('confirmation');
+  setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
+}
 
+function handleConfirmation(event){
+  setOpenPopup('confirmation')
 }
 
 // 3 HANDLE PARA UserInfo 
 function handleEditAvatar(event){
-
+setOpenPopup('avatar')
 }
 
 function handleEditProfile(event){
-
+  setOpenPopup('profile')
 }
 
 function handleClickAdd(event){
-
+  setOpenPopup('addCard')
 }
+
+function handelClosePopup(event){
+  setOpenPopup('');
+}
+
+// envía el form de EDIT PROFILE y lo cierra:
+function handleSubmitProfile(event){
+  event.preventDefault();
+  api.editProfile(event.target.elements['name'].value, event.target.elements['about'].value).then(json => {
+setUser(json);
+handelClosePopup(); 
+  })
+}
+
+// envía el form de ADD CARD y lo cierra:
+function handleSubmitAddCard(event){
+  event.preventDefault();
+  api.addNewCard(nameValue, aboutValue).then(data => {
+setCards([...cards, data]);
+handelClosePopup(); 
+  })
+}
+
+// envía el form Confirmation y lo cierra:
+function handleSubmitConfirmation(event){
+  event.preventDefault();
+  api.deleteCard(setSelectedCard) //borra la card seleccionada
+  
+}
+
 
 
   return (
@@ -90,7 +133,8 @@ function handleClickAdd(event){
     </header>
 
       <main> 
-        <UserInfo user={user}
+        <UserInfo user={user} 
+        handelOpenPopup={() => {setOpenPopup('profile')}}
         handleEditAvatar={handleEditAvatar}     //profile__avatar-edit
         handleEditProfile={handleEditProfile}   //profile__edit-button
         handleClickAdd={handleClickAdd}        //profile__add-button 
@@ -120,12 +164,13 @@ function handleClickAdd(event){
 
 {/* CONFIRMATION (DELETE) */}
     <PopupWithForm
-    open={popups.popupConfirmation}
-    handleClose={() => {setPopups({...popups, popupConfirmation: false })}} >
+    name={'confirmation'}
+    open={openPopup === 'confirmation'}
+    handleClose={handelClosePopup}>
 
     <div id="popupDelete" className="popup-container">
         <button id="closeDelete" className="popup-container__close-popup"></button>
-        <form id="formDelete" action="" className="popup popup_question" name="delete-card" noValidate>
+        <form id="formDelete"  onSubmit={handleSubmitConfirmation} action="" className="popup popup_question" name="delete-card" noValidate>
           <h4 className="popup__title-popup">¿Estás seguro?</h4>
           <input type="hidden" name="card_id" className="popup__input-popup popup__hidden"/>
           <fieldset className="popup__fieldset">
@@ -139,14 +184,15 @@ function handleClickAdd(event){
     
 {/* EDIT PROFILE*/}
     <PopupWithForm
-    open={popups.popupProfile}
+    name={'profile'}
+    open={openPopup === 'profile'}
     error={errors.profile}
     setErrors={() => {}}
-    handleClose={() => {setPopups({...popups, popupProfile: false })}}>
+    handleClose={handelClosePopup}>
 
     <div id="profilePopup" className="popup-container">
       <button id="close" className="popup-container__close-popup"></button>
-      <form id="form" action="" className="popup" name="edit-profile" noValidate>
+      <form id="form" onSubmit={handleSubmitProfile}  action="" className="popup" name="edit-profile" noValidate>
         <h4 className="popup__title-popup">Edit profile</h4>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
@@ -171,8 +217,9 @@ function handleClickAdd(event){
 
     {/* AVATAR */}
     <PopupWithForm
-    open={popups.popupAvatar}
-    handleClose={() => {setPopups({...popups, popupAvatar: false })}}>
+    name={'avatar'}
+    open={openPopup === 'avatar'}
+    handleClose={handelClosePopup}>
 
     <div id="popupAvatar" className="popup-container">
         <button id="closeAvatar" className="popup-container__close-popup"></button>
@@ -194,8 +241,9 @@ function handleClickAdd(event){
 
 {/* ADD CARD */}
     <PopupWithForm
-    open={popups.popupAddCard}
-    handleClose={() => {setPopups({...popups, popupAddCard: false })}}>
+     name={'addCard'}
+     open={openPopup === 'addCard'}
+    handleClose={handelClosePopup}>
 
     <div id="popupAddContainer" className="popup-container">
       <button id="closeAddPopup" className="popup-container__close-popup"></button>
@@ -222,10 +270,12 @@ function handleClickAdd(event){
     </div>
     </PopupWithForm>
 
+{/* IMAGE POPUP */}
   <PopupWithImage
-  open={popups.popupImage}
+   name={'popupImage'}
+   open={openPopup === 'popupImage'}
   selectedCard={selectedCard}
-  handleClose={() => {setPopups({...popups, popupImage: false })}}/>
+  handleClose={handelClosePopup}/>
 
     </div>
   );

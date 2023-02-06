@@ -10,7 +10,7 @@ export default function UserInfo(props){
             <img src={props.user.avatar} alt="avatar" className="profile__avatar" /> 
             <div className="profile__avatar-opacity">
 
-              <button className="profile__avatar-edit"  onClick={props.handleEditAvatar} ></button> 
+              <button className="profile__avatar-edit"  onClick={props.handelOpenPopup} ></button> 
             </div>
           </div>
           <div className="profile__intro">
