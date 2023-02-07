@@ -6,15 +6,15 @@ export default function Card(props){
 
   //Funcion si el dueño le dio like
   function hasOwnerLike() {
-    return props.like.some(item => item.owner._id == props.user._id);
+    return props.likes.some(item => item.owner && item.owner._id == props.user._id);
     // return false;
   };
 
 
     return (
         <>
-        <div classNameName="card">
-           <button classNameName="card__delete-button"  
+        <div className="card">
+           <button className="card__delete-button"  
            onClick={props.handleDeleteCard}
            data-card-id={props.cardId} >
            </button>

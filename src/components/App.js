@@ -243,7 +243,7 @@ function handleSubmitConfirmation(event){
 
     <div id="popupAddContainer" className="popup-container">
       <button id="closeAddPopup" className="popup-container__close-popup"></button>
-      <form id="formAdd" onSubmit={handleSubmitAddCard}  action="" className="popup" name="add-place" novalidate>
+      <form id="formAdd" onSubmit={handleSubmitAddCard}  action="" className="popup" name="add-place" noValidate>
         <h4 className="popup__title-popup">Nuevo lugar</h4>
         <fieldset className="popup__fieldset">
           <div className="popup__field">

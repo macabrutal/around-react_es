@@ -14,7 +14,7 @@ export default function FormValidator(props){
    
     return (
         <>
-{React.cloneElement(props.children, {oninput: handleInput})}
+{React.cloneElement(props.children, {onInput: handleInput})}
         </>
     )
 
