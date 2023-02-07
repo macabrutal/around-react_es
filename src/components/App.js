@@ -126,6 +126,7 @@ function handleSubmitConfirmation(event){
 
 
   return (
+    <body className="root">
     <div className="page">
 
 <Header/>
@@ -273,8 +274,11 @@ function handleSubmitConfirmation(event){
   selectedCard={selectedCard}
   handleClose={handelClosePopup}/>
 
-    </div>
+</div>
+  </body>
+  
   );
+  
 }
 
 
