@@ -64,7 +64,8 @@ const[aboutValue, setAboutValue]= React.useState('');
 
 // 3 HANDLE PARA CARD
 function handleClickImage(event){
-  setOpenPopup('popupImage')
+  setOpenPopup('popupImage');
+  setSelectedCard(event.target.getAttribute('data-card-id'))
 }
 
 function handleLikeCard(event){
@@ -163,10 +164,10 @@ function handleSubmitConfirmation(event){
     <PopupWithForm
     name={'confirmation'}
     open={openPopup === 'confirmation'}
+    error={errors.confirmation}
+    setErrors={() => {}}
     handleClose={handelClosePopup}>
-
     <div id="popupDelete" className="popup-container">
-        <button id="closeDelete" className="popup-container__close-popup"></button>
         <form id="formDelete"  onSubmit={handleSubmitConfirmation} action="" className="popup popup_question" name="delete-card" noValidate>
           <h4 className="popup__title-popup">¿Estás seguro?</h4>
           <input type="hidden" name="card_id" className="popup__input-popup popup__hidden"/>
@@ -187,8 +188,7 @@ function handleSubmitConfirmation(event){
     setErrors={() => {}}
     handleClose={handelClosePopup}>
 
-    <div id="profilePopup" className="popup-container">
-      <button id="close" className="popup-container__close-popup"></button>
+    <div id="profilePopup">
       <form id="form" onSubmit={handleSubmitProfile}  action="" className="popup" name="edit-profile" noValidate>
         <h4 className="popup__title-popup">Edit profile</h4>
         <fieldset className="popup__fieldset">
@@ -216,10 +216,11 @@ function handleSubmitConfirmation(event){
     <PopupWithForm
     name={'avatar'}
     open={openPopup === 'avatar'}
+    error={errors.avatar}
+    setErrors={() => {}}
     handleClose={handelClosePopup}>
 
-    <div id="popupAvatar" className="popup-container">
-        <button id="closeAvatar" className="popup-container__close-popup"></button>
+    <div id="popupAvatar">
         <form id="formAvatar" action="" className="popup popup_avatar" name="edit-avatar" noValidate>
           <h4 className="popup__title-popup">Cambiar foto de perfil</h4>
           <fieldset className="popup__fieldset">
@@ -240,10 +241,11 @@ function handleSubmitConfirmation(event){
     <PopupWithForm
      name={'addCard'}
      open={openPopup === 'addCard'}
+     error={errors.addCard}
+     setErrors={() => {}}
     handleClose={handelClosePopup}>
 
-    <div id="popupAddContainer" className="popup-container">
-      <button id="closeAddPopup" className="popup-container__close-popup"></button>
+    <div id="popupAddContainer">
       <form id="formAdd" onSubmit={handleSubmitAddCard}  action="" className="popup" name="add-place" noValidate>
         <h4 className="popup__title-popup">Nuevo lugar</h4>
         <fieldset className="popup__fieldset">
