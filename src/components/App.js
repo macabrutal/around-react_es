@@ -1,6 +1,4 @@
-// FALTA TERMINAR:
-//// handleLikeCard(event)
-
+// handleLikeCard(event)
 //handleEditAvatar(event)
 //handleEditProfile(event)
 //handleClickAdd(event)
@@ -8,8 +6,11 @@
 
 import React from "react";
 
-import api from './Api'
-import logo from '../images/logo.png';
+import '../pages/index.css'
+
+import Header from'./Header';
+import Footer from './Footer';
+import api from './Api';
 import Card from './Card';
 import UserInfo from './UserInfo';
 import PopupWithImage from './PopupWithImage';
@@ -126,11 +127,8 @@ function handleSubmitConfirmation(event){
 
   return (
     <div className="page">
-       <header className="header">
-      <img className="header__logo" src={logo} alt="logo" />
 
-      <hr className="header__line" />
-    </header>
+<Header/>
 
       <main> 
         <UserInfo user={user} 
@@ -156,9 +154,7 @@ function handleSubmitConfirmation(event){
         </div>
       </main>
       
-      <footer className="footer">
-      <p className="footer__text-footer">© 2021 Alrededor de los EEUU</p>
-    </footer>
+      <Footer/>
 
 
 
@@ -247,7 +243,7 @@ function handleSubmitConfirmation(event){
 
     <div id="popupAddContainer" className="popup-container">
       <button id="closeAddPopup" className="popup-container__close-popup"></button>
-      <form id="formAdd" action="" className="popup" name="add-place" novalidate>
+      <form id="formAdd" onSubmit={handleSubmitAddCard}  action="" className="popup" name="add-place" novalidate>
         <h4 className="popup__title-popup">Nuevo lugar</h4>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
