@@ -123,6 +123,15 @@ handelClosePopup();
   })
 }
 
+function handleSubmitAvatar(event){
+  event.preventDefault();
+  const linkValue = event.target.elements['link'].value;
+  api.newAvatar(linkValue).then(json => {
+    setUser(json);
+    handelClosePopup();
+      })
+}
+
 // envía el form de ADD CARD y lo cierra:
 function handleSubmitAddCard(event) {
   event.preventDefault();
@@ -138,8 +147,9 @@ function handleSubmitAddCard(event) {
 function handleSubmitConfirmation(event){
   event.preventDefault();
   api.deleteCard(setSelectedCard) //borra la card seleccionada
-
 }
+
+
 
   return (
     <div className="page">
@@ -236,7 +246,7 @@ function handleSubmitConfirmation(event){
     handleClose={handelClosePopup}>
 
     <div id="popupAvatar">
-        <form id="formAvatar" action="" className="popup popup_avatar" name="edit-avatar" noValidate>
+        <form id="formAvatar" onSubmit={handleSubmitAvatar} action="" className="popup popup_avatar" name="edit-avatar" noValidate>
           <h4 className="popup__title-popup">Cambiar foto de perfil</h4>
           <fieldset className="popup__fieldset">
             <div className="popup__field">
