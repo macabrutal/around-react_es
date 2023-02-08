@@ -1,9 +1,3 @@
-// handleLikeCard(event)
-//handleEditAvatar(event)
-//handleEditProfile(event)
-//handleClickAdd(event)
-
-
 import React from "react";
 
 import '../pages/index.css'
@@ -23,20 +17,20 @@ export default function App(){
 
 React.useEffect(() => {
   api.getInitialCards().then(json => {
-    setCards(json);  
+    setCards(json);
   })
   .catch((error) => {
     console.log(error);
-  }); 
+  });
 }, []);
 
 React.useEffect(() => {
   api.getProfileInfo().then(json => {
-    setUser(json);  
+    setUser(json);
   })
   .catch((error) => {
     console.log(error);
-  }); 
+  });
 }, []);
 
 
@@ -55,7 +49,7 @@ const [openPopup, setOpenPopup] = React.useState('')
 
 const [selectedCard, setSelectedCard] = React.useState(''); //para saber qué card está seleccionada
 
-const [errors, setErrors]= React.useState({profile: {}, });
+const [errors, setErrors]= React.useState({profile: {}, addCard: {}, avatar: {} });
 
 const [nameValue, setNameValue]= React.useState('');
 
@@ -86,7 +80,7 @@ function handleConfirmation(event){
   setOpenPopup('confirmation')
 }
 
-// 3 HANDLE PARA UserInfo 
+// 3 HANDLE PARA UserInfo
 function handleEditAvatar(event){
 setOpenPopup('avatar')
 }
@@ -108,16 +102,18 @@ function handleSubmitProfile(event){
   event.preventDefault();
   api.editProfile(event.target.elements['name'].value, event.target.elements['about'].value).then(json => {
 setUser(json);
-handelClosePopup(); 
+handelClosePopup();
   })
 }
 
 // envía el form de ADD CARD y lo cierra:
-function handleSubmitAddCard(event){
+function handleSubmitAddCard(event) {
   event.preventDefault();
-  api.addNewCard(nameValue, aboutValue).then(data => {
-setCards([...cards, data]);
-handelClosePopup(); 
+  const titleValue = event.target.elements['title'].value;
+  const imageValue = event.target.elements['image'].value;
+  api.addNewCard(titleValue, imageValue).then(data => {
+    setCards([...cards, data]);
+    handelClosePopup();
   })
 }
 
@@ -125,22 +121,20 @@ handelClosePopup();
 function handleSubmitConfirmation(event){
   event.preventDefault();
   api.deleteCard(setSelectedCard) //borra la card seleccionada
-  
+
 }
-
-
 
   return (
     <div className="page">
 
 <Header/>
 
-      <main> 
-        <UserInfo user={user} 
+      <main>
+        <UserInfo user={user}
         handelOpenPopup={() => {setOpenPopup('profile')}}
         handleEditAvatar={handleEditAvatar}     //profile__avatar-edit
         handleEditProfile={handleEditProfile}   //profile__edit-button
-        handleClickAdd={handleClickAdd}        //profile__add-button 
+        handleClickAdd={handleClickAdd}        //profile__add-button
         />
 
         <div className="cards">
@@ -158,7 +152,7 @@ function handleSubmitConfirmation(event){
           />)}
         </div>
       </main>
-      
+
       <Footer/>
 
 
@@ -167,8 +161,8 @@ function handleSubmitConfirmation(event){
     <PopupWithForm
     name={'confirmation'}
     open={openPopup === 'confirmation'}
-    error={errors.confirmation}
-    setErrors={() => {}}
+    errors={errors}
+    setErrors={setErrors}
     handleClose={handelClosePopup}>
     <div id="popupDelete" className="popup-container">
         <form id="formDelete"  onSubmit={handleSubmitConfirmation} action="" className="popup popup_question" name="delete-card" noValidate>
@@ -182,13 +176,14 @@ function handleSubmitConfirmation(event){
         </form>
       </div>
     </PopupWithForm>
+
     
 {/* EDIT PROFILE*/}
     <PopupWithForm
     name={'profile'}
     open={openPopup === 'profile'}
-    error={errors.profile}
-    setErrors={() => {}}
+    errors={errors}
+    setErrors={setErrors}
     handleClose={handelClosePopup}>
 
     <div id="profilePopup">
@@ -196,7 +191,7 @@ function handleSubmitConfirmation(event){
         <h4 className="popup__title-popup">Edit profile</h4>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
-            <input id="profileTitle" className={`popup__input-popup ${errors.profile.name ? 'popup__error':''}`} type="text" placeholder="Nombre" name="name" required
+            <input id="profileTitle" className={`popup__input-popup ${errors.profile.name ? 'popup__input-popup_error':''}`} type="text" placeholder="Nombre" name="name" required
               minLength="2" maxLength="40" />
             <span className="popup__error popup__error_name">{errors.profile.name}</span>
           </div>
@@ -204,7 +199,7 @@ function handleSubmitConfirmation(event){
           <div className="popup__field">
             <input id="profileSubtitle" className="popup__input-popup" type="text" placeholder="Acerca de mí" name="about"
               required minLength="2" maxLength="200" />
-            <span className="popup__error popup__error_about"></span>
+            <span className="popup__error popup__error_about">{errors.profile.about}</span>
           </div>
           <button id="save" type="submit" className="popup__button-popup">
             Guardar
@@ -213,14 +208,14 @@ function handleSubmitConfirmation(event){
       </form>
     </div>
     </PopupWithForm>
-
+  
 
     {/* AVATAR */}
     <PopupWithForm
     name={'avatar'}
     open={openPopup === 'avatar'}
-    error={errors.avatar}
-    setErrors={() => {}}
+    errors={errors}
+    setErrors={setErrors}
     handleClose={handelClosePopup}>
 
     <div id="popupAvatar">
@@ -230,7 +225,7 @@ function handleSubmitConfirmation(event){
             <div className="popup__field">
               <input id="profileAvatar" className="popup__input-popup" type="url" placeholder="Enlace a tu avatar" name="avatar"
                 required   />
-              <span className="popup__error popup__error_avatar"></span>
+              <span className="popup__error popup__error_avatar">{errors.avatar.avatar}</span>
             </div>
             <button id="saveAvatar" type="submit" className="popup__button-popup">
               Guardar
@@ -240,12 +235,13 @@ function handleSubmitConfirmation(event){
       </div>
     </PopupWithForm>
 
+    
 {/* ADD CARD */}
     <PopupWithForm
      name={'addCard'}
      open={openPopup === 'addCard'}
-     error={errors.addCard}
-     setErrors={() => {}}
+     errors={errors}
+     setErrors={setErrors}
     handleClose={handelClosePopup}>
 
     <div id="popupAddContainer">
@@ -255,14 +251,14 @@ function handleSubmitConfirmation(event){
           <div className="popup__field">
             <input id="addTitle" name="title" className="popup__input-popup" type="text" placeholder="Título" required
               minLength="2" maxLength="30" />
-           
-            <span className="popup__error popup__error_title"></span>
+
+            <span className="popup__error popup__error_title">{errors.addCard.title}</span>
           </div>
           <div className="popup__field">
             <input id="addImage" name="image" className="popup__input-popup" type="url" placeholder="Enlace a la imagen"
               required />
-            
-            <span className="popup__error popup__error_image"></span>
+
+            <span className="popup__error popup__error_image">{errors.addCard.image}</span>
           </div>
           <button id="createButton" type="submit" className="popup__button-popup">
             Crear
@@ -280,9 +276,9 @@ function handleSubmitConfirmation(event){
   handleClose={handelClosePopup}/>
 
 </div>
-  
+
   );
-  
+
 }
 
 

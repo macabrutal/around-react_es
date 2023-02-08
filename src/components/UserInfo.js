@@ -7,10 +7,10 @@ export default function UserInfo(props){
 <div className="profile">
         <div className="profile__info">
           <div className="profile__avatar-container">
-            <img src={props.user.avatar} alt="avatar" className="profile__avatar" /> 
+            <img src={props.user.avatar} alt="avatar" className="profile__avatar" />
             <div className="profile__avatar-opacity">
 
-              <button className="profile__avatar-edit"  onClick={props.handelOpenPopup} ></button> 
+              <button className="profile__avatar-edit"  onClick={props.handleEditAvatar} ></button>
             </div>
           </div>
           <div className="profile__intro">
@@ -23,7 +23,7 @@ export default function UserInfo(props){
 
         <button id="open-add-button" className="profile__add-button"  onClick={props.handleClickAdd}></button>
       </div>
-  
+
         </>
     )
 

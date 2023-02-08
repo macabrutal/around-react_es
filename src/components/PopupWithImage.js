@@ -16,3 +16,5 @@ export default function PopupWithImage(props){
 
 
 //selectedCard : son las propiedades de las CARDS seleccionadas
+
+

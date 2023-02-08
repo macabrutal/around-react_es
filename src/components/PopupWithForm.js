@@ -8,8 +8,8 @@ export default function PopupWithForm(props){
 
     return (
     <Popup open={props.open} handleClose={props.handleClose}>
-       <FormValidator>
-             {props.children}  
+       <FormValidator name={props.name} setErrors={props.setErrors} errors={props.errors}>
+             {props.children}
        </FormValidator>
     </Popup>
     )
