@@ -65,7 +65,11 @@ const[aboutValue, setAboutValue]= React.useState('');
 // 3 HANDLE PARA CARD
 function handleClickImage(event){
   setOpenPopup('popupImage');
-  setSelectedCard(event.target.getAttribute('data-card-id'))
+  const id = event.target.getAttribute('data-card-id');
+  const card = cards.find(item => {
+    return item._id == id;
+  })
+  setSelectedCard(card)
 }
 
 function handleLikeCard(event){
@@ -127,7 +131,6 @@ function handleSubmitConfirmation(event){
 
 
   return (
-    <body className="root">
     <div className="page">
 
 <Header/>
@@ -277,7 +280,6 @@ function handleSubmitConfirmation(event){
   handleClose={handelClosePopup}/>
 
 </div>
-  </body>
   
   );
   
