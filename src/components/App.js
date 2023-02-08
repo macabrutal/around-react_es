@@ -69,12 +69,29 @@ function handleClickImage(event){
 function handleLikeCard(event){
   setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
 
+  const LikesUser = this._likes.filter(user => user._id === this._me.id)
+  if (LikesUser.length > 0) {
+    api.deleteCardLike(this._id).then(data => {
+      this._likes = data.likes;
+      this._likeCounter = data.likes.length;
+      this._element.querySelector(".card__like-counter").textContent = data.likes.length;
+    })
+
+  } else {
+    api.addCardLike(this._id).then(data => {
+      this._likes = data.likes;
+      this._likeCounter = data.likes.length;
+      this._element.querySelector(".card__like-counter").textContent = data.likes.length;
+    })
+  }
+
 }
 
 function handleDeleteCard(event){
   setOpenPopup('confirmation');
   setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
 }
+
 
 function handleConfirmation(event){
   setOpenPopup('confirmation')
@@ -164,7 +181,7 @@ function handleSubmitConfirmation(event){
     errors={errors}
     setErrors={setErrors}
     handleClose={handelClosePopup}>
-    <div id="popupDelete" className="popup-container">
+    <div id="popupDelete" >
         <form id="formDelete"  onSubmit={handleSubmitConfirmation} action="" className="popup popup_question" name="delete-card" noValidate>
           <h4 className="popup__title-popup">¿Estás seguro?</h4>
           <input type="hidden" name="card_id" className="popup__input-popup popup__hidden"/>

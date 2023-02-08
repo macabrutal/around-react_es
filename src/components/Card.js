@@ -14,10 +14,12 @@ export default function Card(props){
     return (
         <>
         <div className="card">
+
            <button className="card__delete-button"  
            onClick={props.handleDeleteCard}
            data-card-id={props.cardId} >
            </button>
+
            <img className="card__img-card" 
            src={props.link} 
            alt="" 
