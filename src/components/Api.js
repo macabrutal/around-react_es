@@ -180,6 +180,7 @@ export  class Api {
           method: "PATCH",
           headers: {
             authorization: this._authorization,
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
              avatar: link
@@ -194,9 +195,11 @@ export  class Api {
           return Promise.reject(`Error: ${res.status}`);
         });
     }
-  
-  
   }
+
+
+//
+
 
   //API
 // ID: web_es_cohort_03

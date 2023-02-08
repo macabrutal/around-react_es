@@ -67,29 +67,49 @@ function handleClickImage(event){
 }
 
 function handleLikeCard(event){
-  setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
+  const id = event.target.getAttribute('data-card-id');
+  const card = cards.find(item => {
+    return item._id == id;
+  })
 
-  const LikesUser = this._likes.filter(user => user._id === this._me.id)
+  console.log('card', card);
+
+  const LikesUser = card.likes.filter(user => user._id === card.owner._id)
   if (LikesUser.length > 0) {
-    api.deleteCardLike(this._id).then(data => {
-      this._likes = data.likes;
-      this._likeCounter = data.likes.length;
-      this._element.querySelector(".card__like-counter").textContent = data.likes.length;
+    api.deleteCardLike(card._id).then(data => {
+      card.likes = data.likes;
+    }).finally(() => {
+      api.getInitialCards().then(json => {
+        console.log(json);
+        setCards(json);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
     })
-
   } else {
-    api.addCardLike(this._id).then(data => {
-      this._likes = data.likes;
-      this._likeCounter = data.likes.length;
-      this._element.querySelector(".card__like-counter").textContent = data.likes.length;
+    api.addCardLike(card._id).then(data => {
+      card.likes = data.likes;
+    }).finally(() => {
+      api.getInitialCards().then(json => {
+        console.log(json);
+        setCards(json);
+      })
+        .catch((error) => {
+          console.log(error);
+        });
     })
   }
-
 }
+
 
 function handleDeleteCard(event){
   setOpenPopup('confirmation');
-  setSelectedCard(event.target.getAttribute('data-card-id')); //localiza qué Card selecciona el user
+  const id = event.target.getAttribute('data-card-id')
+  const card = cards.find(item => {
+    return item._id == id;
+  })
+  setSelectedCard(card);
 }
 
 
@@ -123,14 +143,17 @@ handelClosePopup();
   })
 }
 
+
 function handleSubmitAvatar(event){
   event.preventDefault();
-  const linkValue = event.target.elements['link'].value;
+  const linkValue = event.target.elements['avatar'].value;
   api.newAvatar(linkValue).then(json => {
     setUser(json);
     handelClosePopup();
       })
 }
+
+
 
 // envía el form de ADD CARD y lo cierra:
 function handleSubmitAddCard(event) {
@@ -146,9 +169,17 @@ function handleSubmitAddCard(event) {
 // envía el form Confirmation y lo cierra:
 function handleSubmitConfirmation(event){
   event.preventDefault();
-  api.deleteCard(setSelectedCard) //borra la card seleccionada
+  api.deleteCard(selectedCard._id).finally(() => {
+    setOpenPopup('');
+    api.getInitialCards().then(json => {
+      console.log(json);
+      setCards(json);
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }) //borra la card seleccionada
 }
-
 
 
   return (
