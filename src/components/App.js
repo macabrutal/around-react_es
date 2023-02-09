@@ -184,12 +184,16 @@ function handleSubmitConfirmation(event){
 
 <Header/>
 
-<Main 
+<Main
 user={user}
-handelOpenPopup={() => {props.setOpenPopup('profile')}}
-handleEditAvatar={props.handleEditAvatar}     //profile__avatar-edit
-handleEditProfile={props.handleEditProfile}   //profile__edit-button
-handleClickAdd={props.handleClickAdd} 
+cards={cards}
+handelOpenPopup={() => {setOpenPopup('profile')}}
+handleEditAvatar={handleEditAvatar}     //profile__avatar-edit
+handleEditProfile={handleEditProfile}   //profile__edit-button
+handleClickAdd={handleClickAdd}
+handleClickImage={handleClickImage}
+handleLikeCard={handleLikeCard}
+handleDeleteCard={handleDeleteCard}
 />
        
 
@@ -314,6 +318,9 @@ handleClickAdd={props.handleClickAdd}
    open={openPopup === 'popupImage'}
   selectedCard={selectedCard}
   handleClose={handelClosePopup}/>
+
+
+
 </div>
 
   );

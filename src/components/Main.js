@@ -28,6 +28,7 @@ export default function Main(props) {
             key={item._id}
           />)}
         </div>
+
       </main>
     </>
   )
