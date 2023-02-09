@@ -330,7 +330,6 @@ function handleSubmitConfirmation(event){
    open={openPopup === 'popupImage'}
   selectedCard={selectedCard}
   handleClose={handelClosePopup}/>
-
 </div>
 
   );

@@ -8,7 +8,6 @@ export default function PopupWithImage(props){
      <div>
        {props.selectedCard && props.selectedCard.link ? <img src={props.selectedCard.link} alt="" className="image-container__image-popup" /> : null }
        <p className="image-container__text-image">{props.selectedCard.name}</p>
-
      </div>
   </Popup>
   )
