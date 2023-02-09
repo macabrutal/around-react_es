@@ -143,7 +143,6 @@ handelClosePopup();
   })
 }
 
-
 function handleSubmitAvatar(event){
   event.preventDefault();
   const linkValue = event.target.elements['avatar'].value;
@@ -152,7 +151,6 @@ function handleSubmitAvatar(event){
     handelClosePopup();
       })
 }
-
 
 
 // envía el form de ADD CARD y lo cierra:
@@ -199,7 +197,7 @@ function handleSubmitConfirmation(event){
           {cards.map(item => <Card
           user={user}
           cardId={item._id}
-          title={item.title}
+          title={item.name}
           link={item.link}
           likes={item.likes}
           owner={item.owner}

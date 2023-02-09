@@ -5,6 +5,7 @@ export default function Popup(props){
    
     return (
         <>
+        
             <div className={`popup-container ${props.open ? 'popup-container_show' : ''}`}>
                 <button
                 onClick={props.handleClose}

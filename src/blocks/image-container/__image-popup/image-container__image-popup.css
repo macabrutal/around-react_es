@@ -1,11 +1,11 @@
 .image-container__image-popup {
-  /* width: calc(100% - 80px);
+   width: calc(100% - 80px);
   max-height: 540px;
-  margin: 0 auto; */
+  margin: 0 auto; 
   padding-top: 90px;
   max-width: 75vw;
   max-height: 75vh;
-  width: 100%;
+  /* width: 100%; */
 }
 
 /* MOBILE*/
