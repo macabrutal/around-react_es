@@ -140,6 +140,7 @@ function handleSubmitProfile(event){
 setUser(json);
 handelClosePopup();
   })
+  event.target.reset(); //resetear los inputs
 }
 
 function handleSubmitAvatar(event){
@@ -149,18 +150,21 @@ function handleSubmitAvatar(event){
     setUser(json);
     handelClosePopup();
       })
+      event.target.reset(); //resetear los inputs
 }
 
 
 // envía el form de ADD CARD y lo cierra:
 function handleSubmitAddCard(event) {
   event.preventDefault();
+  
   const titleValue = event.target.elements['title'].value;
   const imageValue = event.target.elements['image'].value;
   api.addNewCard(titleValue, imageValue).then(data => {
     setCards([...cards, data]);
     handelClosePopup();
   })
+  event.target.reset(); //resetear los inputs
 }
 
 // envía el form Confirmation y lo cierra:
