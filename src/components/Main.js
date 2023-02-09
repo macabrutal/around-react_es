@@ -7,7 +7,7 @@ import Footer from './Footer';
 import api from './Api';
 import Card from './Card';
 import UserInfo from './UserInfo';
-import PopupWithImage from './PopupWithImage';
+import ImagePopup from './ImagePopup';  //Antes: PopupWithImage
 import PopupWithForm from './PopupWithForm';
 
 
@@ -325,7 +325,7 @@ function handleSubmitConfirmation(event){
     </PopupWithForm>
 
 {/* IMAGE POPUP */}
-  <PopupWithImage
+  <ImagePopup
    name={'popupImage'}
    open={openPopup === 'popupImage'}
   selectedCard={selectedCard}
@@ -333,7 +333,4 @@ function handleSubmitConfirmation(event){
 </div>
 
   );
-
 }
-
-

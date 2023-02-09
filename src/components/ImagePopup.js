@@ -2,7 +2,7 @@
 
 import Popup from './Popup'
 
-export default function PopupWithImage(props){
+export default function ImagePopup(props){
   return (
   <Popup open={props.open} handleClose={props.handleClose}>
      <div>
