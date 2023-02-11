@@ -1,7 +1,7 @@
 /* CLASE CON  display: block; PARA MOSTRAR LA MODAL: */
 
 .popup-container_show {
-  /* display: flex; */
+  display: flex;
   pointer-events: auto;
   justify-content: center;
   align-content: center;
