@@ -113,7 +113,7 @@ export default function App(props) {
     setOpenPopup("addCard");
   }
 
-  function handelClosePopup(event) {
+  function handleClosePopup(event) {
     setOpenPopup("");
   }
 
@@ -127,7 +127,7 @@ export default function App(props) {
       )
       .then((json) => {
         setUser(json);
-        handelClosePopup();
+        handleClosePopup();
       });
     event.target.reset(); //resetear los inputs
   }
@@ -137,7 +137,7 @@ export default function App(props) {
     const linkValue = event.target.elements["avatar"].value;
     api.newAvatar(linkValue).then((json) => {
       setUser(json);
-      handelClosePopup();
+      handleClosePopup();
     });
     event.target.reset(); //resetear los inputs
   }
@@ -149,8 +149,8 @@ export default function App(props) {
     const titleValue = event.target.elements["title"].value;
     const imageValue = event.target.elements["image"].value;
     api.addNewCard(titleValue, imageValue).then((data) => {
-      setCards([...cards, data]);
-      handelClosePopup();
+      setCards([data, ...cards])
+      handleClosePopup();
     });
     event.target.reset(); //resetear los inputs
   }
@@ -195,7 +195,7 @@ export default function App(props) {
         open={openPopup === "confirmation"}
         errors={errors}
         setErrors={setErrors}
-        handleClose={handelClosePopup}
+        handleClose={handleClosePopup}
       >
         <div id="popupDelete">
           <form
@@ -231,7 +231,7 @@ export default function App(props) {
         open={openPopup === "profile"}
         errors={errors}
         setErrors={setErrors}
-        handleClose={handelClosePopup}
+        handleClose={handleClosePopup}
       >
         <div id="profilePopup">
           <form
@@ -291,7 +291,7 @@ export default function App(props) {
         open={openPopup === "avatar"}
         errors={errors}
         setErrors={setErrors}
-        handleClose={handelClosePopup}
+        handleClose={handleClosePopup}
       >
         <div id="popupAvatar">
           <form
@@ -335,7 +335,7 @@ export default function App(props) {
         open={openPopup === "addCard"}
         errors={errors}
         setErrors={setErrors}
-        handleClose={handelClosePopup}
+        handleClose={handleClosePopup}
       >
         <div id="popupAddContainer">
           <form
@@ -395,7 +395,7 @@ export default function App(props) {
         name={"popupImage"}
         open={openPopup === "popupImage"}
         selectedCard={selectedCard}
-        handleClose={handelClosePopup}
+        handleClose={handleClosePopup}
       />
     </div>
   );

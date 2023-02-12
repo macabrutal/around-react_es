@@ -17,7 +17,7 @@ export default function Main(props) {
         />
 
         <div className="cards">
-          {props.cards.reverse().map((item) => (
+          {props.cards.map((item) => (
             <Card
               user={props.user}
               cardId={item._id}
