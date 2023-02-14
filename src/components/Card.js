@@ -3,8 +3,7 @@ import React from "react";
 export default function Card(props) {
   //Funcion si el dueño le dio like
   function hasOwnerLike() {
-    return props.likes.some((item) => item._id && item._id == props.user._id);
-    // return false;
+    return props.likes.some((item) => item._id && item._id === props.user._id);
   }
 
   return (
