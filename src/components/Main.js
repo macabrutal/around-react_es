@@ -2,7 +2,11 @@ import UserInfo from "./UserInfo";
 import Card from "./Card";
 import React from "react";
 
+//Utiliza sus propiedades name, about y avatar en lugar de las variables userName
+
 export default function Main(props) {
+ 
+
   return (
     <>
       <main>
@@ -19,6 +23,7 @@ export default function Main(props) {
         <div className="cards">
           {props.cards.map((item) => (
             <Card
+              onCardLike={item.onCardLike}
               user={props.user}
               cardId={item._id}
               title={item.name}

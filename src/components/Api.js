@@ -91,8 +91,6 @@ export class Api {
     });
   }
 
-  //5.MOSTRAR CUÁNTOS LIKES TIENE 1 CARD
-  //propiedad: likes
 
   //7.BORRAR 1 CARD
   //DELETE https://around.nomoreparties.co/v1/groupId/cards/cardId
@@ -150,6 +148,14 @@ export class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+    //5.MOSTRARLIKES DE 1 CARD
+  //propiedad: likes
+  changeLikeCardStatus(cardId, isLiked){
+    return isLiked ? this.addCardLike(cardId) : this.deleteCardLike(cardId);
+  }
+
+
 
   //9.Actualizar la foto de perfil
   //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
