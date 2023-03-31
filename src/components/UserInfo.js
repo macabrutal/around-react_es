@@ -3,7 +3,7 @@ import React from "react";
 import {CurrentUserContext} from "../context/CurrentUserContext"
 
 export default function UserInfo(props) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <>

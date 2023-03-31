@@ -204,7 +204,7 @@ export default function App(props) {
       <Main
         user={user}
         cards={cards}
-        onCardLike={handleCardLike}
+        // onCardLike={handleCardLike}
         handelOpenPopup={() => {
           setOpenPopup("profile");
         }}

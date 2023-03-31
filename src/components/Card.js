@@ -3,7 +3,7 @@ import React from "react";
 import {CurrentUserContext} from "../context/CurrentUserContext"
 
 export default function Card(props) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   //--- Funcion si el dueño le dio like -->> ¿¿¿¿¿ BORRO ESTO B??????
   function hasOwnerLike() {

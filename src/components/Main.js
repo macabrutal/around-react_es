@@ -23,7 +23,7 @@ export default function Main(props) {
         <div className="cards">
           {props.cards.map((item) => (
             <Card
-              onCardLike={item.onCardLike}
+              // onCardLike={item.onCardLike}
               user={props.user}
               cardId={item._id}
               title={item.name}
