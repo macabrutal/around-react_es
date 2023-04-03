@@ -25,10 +25,22 @@ const cardDeleteButtonClassName = (
 // SRINT 11:Crea una variable que después establecerás en `className` para el botón like
 const cardLikeButtonClassName = `card__card-like_active`; 
 
-// SRINT 11: handle del botón like
-function handleCardLike() {
+// SRINT 11: 3 handles : like, click, delete
+function handleLikeCard() {
   props.onCardLike(props.cardId);
 }
+
+
+function handleClickImage() {
+  props.onCardClick(props.cardId);
+}
+
+
+function handleDeleteCard() {
+  props.onDeleteCard(props.card);
+}
+
+
 
 //controlador de clics handleLikeClick() > llama a onCardLike() desde este componente y pasa el argumento card igual que como lo hiciste con el controlador handleClick().
 
@@ -37,7 +49,7 @@ function handleCardLike() {
       <div className="card">
         <button
           className={cardDeleteButtonClassName}
-          onClick={props.handleDeleteCard}
+          onClick={handleDeleteCard}
           data-card-id={props.cardId}
         ></button>
 
@@ -45,7 +57,7 @@ function handleCardLike() {
           className="card__img-card"
           src={props.link}
           alt=""
-          onClick={props.handleClickImage}
+          onClick={handleClickImage}
           data-card-id={props.cardId}
         />
 
@@ -53,7 +65,7 @@ function handleCardLike() {
           <h3 className="card__card-title">{props.title}</h3>
           <div className="card__like-container">
             <button
-              onClick={handleCardLike}
+              onClick={handleLikeCard}
               data-card-id={props.cardId}
               className={`card__card-like ${
                 hasOwnerLike() ? cardLikeButtonClassName : ""
