@@ -11,7 +11,7 @@ export default function Card(props) {
   }
 
   // SRINT 11:Verificando si el usuario actual es el propietario de la tarjeta actual
-const isOwn = card.owner._id === currentUser._id;
+const isOwn = props.owner._id === currentUser._id;
 
 // SRINT 11:Creando una variable que después establecerás en `className` para el botón eliminar
 const cardDeleteButtonClassName = (
