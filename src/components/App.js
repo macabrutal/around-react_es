@@ -54,6 +54,9 @@ export default function App(props) {
       .catch((error) => {});
   }, []);
 
+  //11: ref
+  const imageRef = React.useRef();
+
   //SRINT 11: handle like de la card
   function handleLikeCard(event) {
     const id = event.target.getAttribute("data-card-id");
@@ -163,11 +166,25 @@ export default function App(props) {
     event.preventDefault();
     const linkValue = event.target.elements["avatar"].value;
     api.newAvatar(linkValue).then((json) => {
-      setUser(json);
+      setSelectedCard(json);
       handleClosePopup();
     });
     event.target.reset(); //resetear los inputs
   }
+
+  //handleSubmitAvatar SPRINT 10
+  // function handleSubmitAvatar(event) {
+  //   event.preventDefault();
+  //   const linkValue = event.target.elements["avatar"].value;
+  //   api.newAvatar(linkValue).then((json) => {
+  //     setUser(json);
+  //     handleClosePopup();
+  //   });
+  //   event.target.reset(); //resetear los inputs
+  // }
+  
+
+
 
   // envía el form de ADD CARD y lo cierra:
   function handleSubmitAddCard(event) {
@@ -341,6 +358,7 @@ export default function App(props) {
                   type="url"
                   placeholder="Enlace a tu avatar"
                   name="avatar"
+                  ref={imageRef} //sprint 11 :Ref
                   required
                 />
                 <span className="popup__error popup__error_avatar">
