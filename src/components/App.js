@@ -152,6 +152,7 @@ export default function App(props) {
     }); //borra la card seleccionada
   }
 
+  //sprint 11: botoón inválido
   function isInvalid(form){
     if(!errors[form]) return false;
     return Object.keys(errors[form]).some(item => {
