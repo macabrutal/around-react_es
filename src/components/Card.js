@@ -7,7 +7,7 @@ export default function Card(props) {
 
   //--- Funcion si el dueño le dio like -->> ¿¿¿¿¿ BORRO ESTO B??????
   function hasOwnerLike() {
-    return props.likes.some((item) => item._id && item._id === props.user._id);
+    return props.likes.some((item) => item._id && item._id === currentUser._id);
   }
 
   // SRINT 11:Verificando si el usuario actual es el propietario de la tarjeta actual
@@ -15,7 +15,7 @@ const isOwn = props.owner._id === currentUser._id;
 
 // SRINT 11:Creando una variable que después establecerás en `className` para el botón eliminar
 const cardDeleteButtonClassName = (
-  `card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
+  `card__delete-button ${isOwn ? 'card__delete-button_visible' : 'card__delete-button-hidden'}`
 ); 
 
 
@@ -27,17 +27,17 @@ const cardLikeButtonClassName = `card__card-like_active`;
 
 // SRINT 11: 3 handles : like, click, delete
 function handleLikeCard() {
-  props.onCardLike(props.cardId);
+  props.handleLikeCard(props.cardId);
 }
 
 
 function handleClickImage() {
-  props.onCardClick(props.cardId);
+  props.handleClickImage(props.cardId);
 }
 
 
 function handleDeleteCard() {
-  props.onDeleteCard(props.card);
+  props.handleDeleteCard(props.cardId);
 }
 
 

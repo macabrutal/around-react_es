@@ -12,7 +12,7 @@ import {CurrentUserContext} from "../context/CurrentUserContext"
 
 export default function App(props) {
 
-  const [user, setUser] = React.useState({}); //estado0 de usuarios
+  //const [user, setUser] = React.useState({}); //estado0 de usuarios
   const [cards, setCards] = React.useState([]); //estado0 de usuarios
 
   const [openPopup, setOpenPopup] = React.useState("");
@@ -36,14 +36,14 @@ export default function App(props) {
       .catch((error) => {});
   }, []);
 
-  React.useEffect(() => {
-    api
-      .getProfileInfo()
-      .then((json) => {
-        setUser(json);
-      })
-      .catch((error) => {});
-  }, []);
+  // React.useEffect(() => {
+  //   api
+  //     .getProfileInfo()
+  //     .then((json) => {
+  //       setCurrentUser(json);
+  //     })
+  //     .catch((error) => {});
+  // }, []);
 
   React.useEffect(() => {
     api
@@ -58,10 +58,9 @@ export default function App(props) {
   const imageRef = React.useRef();
 
   //SRINT 11: handle like de la card
-  function handleLikeCard(event) {
-    const id = event.target.getAttribute("data-card-id");
+  function handleLikeCard(cardId) {
     const card = cards.find((item) => {
-      return item._id === id;
+      return item._id === cardId;
     });
 
     // Verifica una vez más si a esta tarjeta ya le han dado like
@@ -74,11 +73,10 @@ export default function App(props) {
 }
 
   // 3 HANDLE PARA CARD
-  function handleClickImage(event) {
+  function handleClickImage(cardId) {
     setOpenPopup("popupImage");
-    const id = event.target.getAttribute("data-card-id");
     const card = cards.find((item) => {
-      return item._id === id;
+      return item._id === cardId;
     });
     setSelectedCard(card);
   }
@@ -121,11 +119,10 @@ export default function App(props) {
   //   }
   // }
 
-  function handleDeleteCard(event) {
+  function handleDeleteCard(cardId) {
     setOpenPopup("confirmation");
-    const id = event.target.getAttribute("data-card-id");
     const card = cards.find((item) => {
-      return item._id === id;
+      return item._id === cardId;
     });
     setSelectedCard(card);
   }
@@ -156,7 +153,7 @@ export default function App(props) {
         event.target.elements["about"].value
       )
       .then((json) => {
-        setUser(json);
+        setCurrentUser(json);
         handleClosePopup();
       });
     event.target.reset(); //resetear los inputs
@@ -164,25 +161,13 @@ export default function App(props) {
 
   function handleSubmitAvatar(event) {
     event.preventDefault();
-    const linkValue = event.target.elements["avatar"].value;
+    const linkValue = imageRef.current.value;
     api.newAvatar(linkValue).then((json) => {
-      setSelectedCard(json);
+      setCurrentUser(json);
       handleClosePopup();
     });
     event.target.reset(); //resetear los inputs
   }
-
-  //handleSubmitAvatar SPRINT 10
-  // function handleSubmitAvatar(event) {
-  //   event.preventDefault();
-  //   const linkValue = event.target.elements["avatar"].value;
-  //   api.newAvatar(linkValue).then((json) => {
-  //     setUser(json);
-  //     handleClosePopup();
-  //   });
-  //   event.target.reset(); //resetear los inputs
-  // }
-  
 
 
 
@@ -219,7 +204,6 @@ export default function App(props) {
 
       <CurrentUserContext.Provider value={currentUser}>
       <Main
-        user={user}
         cards={cards}
         // onCardLike={handleCardLike}
         handelOpenPopup={() => {
