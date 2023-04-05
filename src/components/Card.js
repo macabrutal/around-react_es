@@ -19,8 +19,6 @@ const cardDeleteButtonClassName = (
 ); 
 
 
-// SRINT 11:Verifica si el usuario actual le dio "like" a la tarjeta ****
-// const isLiked = card.likes.some(i => i._id === currentUser._id);
 
 // SRINT 11:Crea una variable que después establecerás en `className` para el botón like
 const cardLikeButtonClassName = `card__card-like_active`; 
@@ -39,7 +37,6 @@ function handleClickImage() {
 function handleDeleteCard() {
   props.handleDeleteCard(props.cardId);
 }
-
 
 
 //controlador de clics handleLikeClick() > llama a onCardLike() desde este componente y pasa el argumento card igual que como lo hiciste con el controlador handleClick().

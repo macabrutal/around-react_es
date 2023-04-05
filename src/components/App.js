@@ -12,7 +12,6 @@ import {CurrentUserContext} from "../context/CurrentUserContext"
 
 export default function App(props) {
 
-  //const [user, setUser] = React.useState({}); //estado0 de usuarios
   const [cards, setCards] = React.useState([]); //estado0 de usuarios
 
   const [openPopup, setOpenPopup] = React.useState("");
@@ -36,14 +35,7 @@ export default function App(props) {
       .catch((error) => {});
   }, []);
 
-  // React.useEffect(() => {
-  //   api
-  //     .getProfileInfo()
-  //     .then((json) => {
-  //       setCurrentUser(json);
-  //     })
-  //     .catch((error) => {});
-  // }, []);
+  
 
   React.useEffect(() => {
     api
@@ -81,43 +73,6 @@ export default function App(props) {
     setSelectedCard(card);
   }
 
-  // function handleLikeCard(event) {
-  //   const id = event.target.getAttribute("data-card-id");
-  //   const card = cards.find((item) => {
-  //     return item._id === id;
-  //   });
-
-  //   const LikesUser = card.likes.filter((user) => user._id === card.owner._id);
-  //   if (LikesUser.length > 0) {
-  //     api
-  //       .deleteCardLike(card._id)
-  //       .then((data) => {
-  //         card.likes = data.likes;
-  //       })
-  //       .finally(() => {
-  //         api
-  //           .getInitialCards()
-  //           .then((json) => {
-  //             setCards(json);
-  //           })
-  //           .catch((error) => {});
-  //       });
-  //   } else {
-  //     api
-  //       .addCardLike(card._id)
-  //       .then((data) => {
-  //         card.likes = data.likes;
-  //       })
-  //       .finally(() => {
-  //         api
-  //           .getInitialCards()
-  //           .then((json) => {
-  //             setCards(json);
-  //           })
-  //           .catch((error) => {});
-  //       });
-  //   }
-  // }
 
   function handleDeleteCard(cardId) {
     setOpenPopup("confirmation");
@@ -170,7 +125,6 @@ export default function App(props) {
   }
 
 
-
   // envía el form de ADD CARD y lo cierra:
   function handleSubmitAddCard(event) {
     event.preventDefault();
@@ -196,6 +150,13 @@ export default function App(props) {
         })
         .catch((error) => {});
     }); //borra la card seleccionada
+  }
+
+  function isInvalid(form){
+    if(!errors[form]) return false;
+    return Object.keys(errors[form]).some(item => {
+      return errors[form][item] !== '';
+    })
   }
 
   return (
@@ -308,7 +269,10 @@ export default function App(props) {
                   {errors.profile.about}
                 </span>
               </div>
-              <button id="save" type="submit" className="popup__button-popup">
+              <button 
+              disabled = {isInvalid('profile')}
+              id="save" type="submit" 
+              className= {`popup__button-popup ${isInvalid('profile') ? 'popup__button-popup_inactive' : '' }`}>
                 Guardar
               </button>
             </fieldset>
@@ -350,10 +314,10 @@ export default function App(props) {
                 </span>
               </div>
               <button
+              disabled = {isInvalid('avatar')}
                 id="saveAvatar"
                 type="submit"
-                className="popup__button-popup"
-              >
+              className= {`popup__button-popup ${isInvalid('avatar') ? 'popup__button-popup_inactive' : '' }`}>
                 Guardar
               </button>
             </fieldset>
@@ -411,10 +375,10 @@ export default function App(props) {
                 </span>
               </div>
               <button
+              disabled = {isInvalid('addCard')}
                 id="createButton"
                 type="submit"
-                className="popup__button-popup"
-              >
+                className= {`popup__button-popup ${isInvalid('addCard') ? 'popup__button-popup_inactive' : '' }`}>
                 Crear
               </button>
             </fieldset>
