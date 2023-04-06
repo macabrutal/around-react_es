@@ -46,7 +46,7 @@ export default function App(props) {
       .catch((error) => {});
   }, []);
 
-  //11: ref
+  //sprint 11 :Ref
   const imageRef = React.useRef();
 
   //SRINT 11: handle like de la card
