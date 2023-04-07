@@ -1,6 +1,6 @@
 import React from "react";
 
-import {CurrentUserContext} from "../context/CurrentUserContext"
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
 export default function UserInfo(props) {
   const currentUser = React.useContext(CurrentUserContext);

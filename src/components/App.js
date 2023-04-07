@@ -4,11 +4,13 @@ import "../index.css";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import api from "./Api";
+import api from "../utils/api";
 import ImagePopup from "./ImagePopup"; //Antes: PopupWithImage
 import PopupWithForm from "./PopupWithForm";
 import Main from "./Main";
-import {CurrentUserContext} from "../context/CurrentUserContext"
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import AddPlacePopup from "./AddPlacePopup";
+import EditProfilePopup from "./EditProfilePopup";
 
 export default function App(props) {
 
@@ -219,12 +221,14 @@ export default function App(props) {
       </PopupWithForm>
 
       {/* EDIT PROFILE*/}
-      <PopupWithForm
+      <EditProfilePopup
         name={"profile"}
         open={openPopup === "profile"}
         errors={errors}
         setErrors={setErrors}
         handleClose={handleClosePopup}
+        isInvalid={isInvalid}
+        handleSubmitProfile={handleSubmitProfile}
       >
         <div id="profilePopup">
           <form
@@ -279,7 +283,7 @@ export default function App(props) {
             </fieldset>
           </form>
         </div>
-      </PopupWithForm>
+      </EditProfilePopup>
 
       {/* AVATAR */}
       <PopupWithForm
@@ -288,6 +292,8 @@ export default function App(props) {
         errors={errors}
         setErrors={setErrors}
         handleClose={handleClosePopup}
+        isInvalid={isInvalid}
+        handleSubmitAvatar={handleSubmitAvatar}
       >
         <div id="popupAvatar">
           <form
@@ -327,65 +333,15 @@ export default function App(props) {
       </PopupWithForm>
 
       {/* ADD CARD */}
-      <PopupWithForm
+      <AddPlacePopup
         name={"addCard"}
         open={openPopup === "addCard"}
         errors={errors}
         setErrors={setErrors}
-        handleClose={handleClosePopup}
-      >
-        <div id="popupAddContainer">
-          <form
-            id="formAdd"
-            onSubmit={handleSubmitAddCard}
-            action=""
-            className="popup"
-            name="add-place"
-            noValidate
-          >
-            <h4 className="popup__title-popup">Nuevo lugar</h4>
-            <fieldset className="popup__fieldset">
-              <div className="popup__field">
-                <input
-                  id="addTitle"
-                  name="title"
-                  className="popup__input-popup"
-                  type="text"
-                  placeholder="Título"
-                  required
-                  minLength="2"
-                  maxLength="30"
-                />
-
-                <span className="popup__error popup__error_title">
-                  {errors.addCard.title}
-                </span>
-              </div>
-              <div className="popup__field">
-                <input
-                  id="addImage"
-                  name="image"
-                  className="popup__input-popup"
-                  type="url"
-                  placeholder="Enlace a la imagen"
-                  required
-                />
-
-                <span className="popup__error popup__error_image">
-                  {errors.addCard.image}
-                </span>
-              </div>
-              <button
-              disabled = {isInvalid('addCard')}
-                id="createButton"
-                type="submit"
-                className= {`popup__button-popup ${isInvalid('addCard') ? 'popup__button-popup_inactive' : '' }`}>
-                Crear
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </PopupWithForm>
+        handleClosePopup={handleClosePopup}
+        handleSubmitAddCard={handleSubmitAddCard}
+        isInvalid={isInvalid}
+      />
 
       {/* IMAGE POPUP */}
       <ImagePopup
