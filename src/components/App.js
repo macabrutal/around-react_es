@@ -286,7 +286,7 @@ export default function App(props) {
       </EditProfilePopup>
 
       {/* AVATAR */}
-      <PopupWithForm
+      <EditAvatarPopup
         name={"avatar"}
         open={openPopup === "avatar"}
         errors={errors}
@@ -330,7 +330,7 @@ export default function App(props) {
             </fieldset>
           </form>
         </div>
-      </PopupWithForm>
+      </EditAvatarPopup>
 
       {/* ADD CARD */}
       <AddPlacePopup
