@@ -1,11 +1,12 @@
 import UserInfo from "./UserInfo";
 import Card from "./Card";
 import React from "react";
-
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 //Utiliza sus propiedades name, about y avatar en lugar de las variables userName
 
 export default function Main(props) {
-
+  const currentUser = React.useContext(CurrentUserContext);
+  
   return (
     <>
       <main>
