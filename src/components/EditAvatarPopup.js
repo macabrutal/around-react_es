@@ -1,7 +1,25 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import api from "../utils/api";
 
 export default function EditAvatarPopup (props) {
+
+    const imageRef = React.useRef();
+
+    function handleSubmitAvatar(event) {
+        event.preventDefault();
+        const linkValue = imageRef.current.value;
+        api.newAvatar(linkValue).then((json) => {
+          props.setCurrentUser(json);
+          handleClosePopup();
+        });
+        event.target.reset(); //resetear los inputs
+      }
+
+      function handleClosePopup() {
+        props.handleClose();
+      }
+      
     return (<>
         <PopupWithForm
             name={"avatar"}
@@ -10,6 +28,7 @@ export default function EditAvatarPopup (props) {
             setErrors={props.setErrors}
             handleClose={props.handleClosePopup}
         >
+            
             <div id="popupAvatar">
                 <form
                     id="formAvatar"
@@ -28,7 +47,7 @@ export default function EditAvatarPopup (props) {
                                 type="url"
                                 placeholder="Enlace a tu avatar"
                                 name="avatar"
-                                ref={props.imageRef} //sprint 11 :Ref
+                                ref={imageRef} //sprint 11 :Ref
                                 required
                             />
                             <span className="popup__error popup__error_avatar">

@@ -11,6 +11,9 @@ import Main from "./Main";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
 import AddPlacePopup from "./AddPlacePopup";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+
+
 
 export default function App(props) {
 
@@ -229,61 +232,7 @@ export default function App(props) {
         handleClose={handleClosePopup}
         isInvalid={isInvalid}
         handleSubmitProfile={handleSubmitProfile}
-      >
-        <div id="profilePopup">
-          <form
-            id="form"
-            onSubmit={handleSubmitProfile}
-            action=""
-            className="popup"
-            name="edit-profile"
-            noValidate
-          >
-            <h4 className="popup__title-popup">Edit profile</h4>
-            <fieldset className="popup__fieldset">
-              <div className="popup__field">
-                <input
-                  id="profileTitle"
-                  className={`popup__input-popup ${
-                    errors.profile.name ? "popup__input-popup_error" : ""
-                  }`}
-                  type="text"
-                  placeholder="Nombre"
-                  name="name"
-                  required
-                  minLength="2"
-                  maxLength="40"
-                />
-                <span className="popup__error popup__error_name">
-                  {errors.profile.name}
-                </span>
-              </div>
-
-              <div className="popup__field">
-                <input
-                  id="profileSubtitle"
-                  className="popup__input-popup"
-                  type="text"
-                  placeholder="Acerca de mí"
-                  name="about"
-                  required
-                  minLength="2"
-                  maxLength="200"
-                />
-                <span className="popup__error popup__error_about">
-                  {errors.profile.about}
-                </span>
-              </div>
-              <button 
-              disabled = {isInvalid('profile')}
-              id="save" type="submit" 
-              className= {`popup__button-popup ${isInvalid('profile') ? 'popup__button-popup_inactive' : '' }`}>
-                Guardar
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </EditProfilePopup>
+      />
 
       {/* AVATAR */}
       <EditAvatarPopup
@@ -294,43 +243,8 @@ export default function App(props) {
         handleClose={handleClosePopup}
         isInvalid={isInvalid}
         handleSubmitAvatar={handleSubmitAvatar}
-      >
-        <div id="popupAvatar">
-          <form
-            id="formAvatar"
-            onSubmit={handleSubmitAvatar}
-            action=""
-            className="popup popup_avatar"
-            name="edit-avatar"
-            noValidate
-          >
-            <h4 className="popup__title-popup">Cambiar foto de perfil</h4>
-            <fieldset className="popup__fieldset">
-              <div className="popup__field">
-                <input
-                  id="profileAvatar"
-                  className="popup__input-popup"
-                  type="url"
-                  placeholder="Enlace a tu avatar"
-                  name="avatar"
-                  ref={imageRef} //sprint 11 :Ref
-                  required
-                />
-                <span className="popup__error popup__error_avatar">
-                  {errors.avatar.avatar}
-                </span>
-              </div>
-              <button
-              disabled = {isInvalid('avatar')}
-                id="saveAvatar"
-                type="submit"
-              className= {`popup__button-popup ${isInvalid('avatar') ? 'popup__button-popup_inactive' : '' }`}>
-                Guardar
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </EditAvatarPopup>
+        setCurrentUser={setCurrentUser}
+      />
 
       {/* ADD CARD */}
       <AddPlacePopup
